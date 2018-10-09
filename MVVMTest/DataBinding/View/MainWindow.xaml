@@ -53,7 +53,26 @@
                     <DataGridTextColumn Header="添加时间" Binding="{Binding AddDateTime}"/>
                     <DataGridTextColumn Header="字符串" Binding="{Binding StringValue}"/>
                     <DataGridTextColumn Header="数字" Binding="{Binding IntValue}"/>
-                    <DataGridTextColumn Header="布尔" Binding="{Binding BoolValue}"/>
+                    <!--<DataGridCheckBoxColumn Header="布尔" Binding="{Binding BoolValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <DataGridCheckBoxColumn.ElementStyle>
+                            <Style  TargetType="CheckBox" />
+                        </DataGridCheckBoxColumn.ElementStyle>
+                        <DataGridCheckBoxColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Path=DataContext.IsSelectAll, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" />
+                            </DataTemplate>
+                        </DataGridCheckBoxColumn.HeaderTemplate>
+                    </DataGridCheckBoxColumn>-->
+                    <DataGridTemplateColumn Header="选择" SortMemberPath="IsSelected" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Path=BoolValue, UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center" HorizontalAlignment="Center"
+                                          Command="{Binding Path=DataContext.SelectMenuItemCommand,
+                                    RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type DataGrid}}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel 
